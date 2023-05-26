@@ -20,7 +20,43 @@ a:hover {
   @apply my-6;
 }
 
-.slide-transition {
-  transition: transform 0.3s ease-out;
-  transform : translateX(-100%)
+.slider {
+  width: 50%;
+  height: 300px; /* 슬라이더의 높이 설정 */
+  overflow: hidden;
+  position: relative;
 }
+
+.slider .slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* 슬라이드 전환 효과 */
+}
+
+
+.slider .slide.active {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.slider .slide.prev {
+  transform: translateX(100%); /* 이전 슬라이드 위치 설정 */
+  opacity: 0;
+}
+
+.slider .slide.next {
+  transform: translateX(-100%); 
+  opacity: 0;
+}
+
+
+
+
+
