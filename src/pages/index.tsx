@@ -3,7 +3,7 @@ import Slide from '@/components/brand/Slide';
 
 const Index = () => {
   return (
-    <div className="mx-auto h-full w-full">
+    <div className="mx-auto h-full w-full bg-primary-bg">
       <Slide />
     </div>
   );
