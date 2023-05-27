@@ -10,29 +10,15 @@ const Slide = () => {
   return (
     <div className="mb-5">
       <Slider>
-        {/* <div className=''> */}
         <div className="h-[33.5rem] w-full">
-          <Image
-            src={slide1}
-            alt="아스크스토리 브랜드 이미지1"
-            className="h-full"
-          />
+          <Image src={slide1} alt="이미지1" className="h-full" />
         </div>
         <div className="h-[33.5rem] w-full">
-          <Image
-            src={slide2}
-            alt="아스크스토리 브랜드 이미지2"
-            className="h-full"
-          />
+          <Image src={slide2} alt="이미지2" className="h-full" />
         </div>
         <div className="h-[33.5rem] w-full">
-          <Image
-            src={slide3}
-            alt="아스크스토리 브랜드 이미지3"
-            className="h-full"
-          />
+          <Image src={slide3} alt="이미지3" className="h-full" />
         </div>
-        {/* </div> */}
       </Slider>
     </div>
   );
