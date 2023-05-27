@@ -5,18 +5,16 @@ type SliderProps = {
 };
 
 const Slider = (props: SliderProps) => {
-  console.log('children', props.children);
-
   const sliderImgArr: any = props.children;
-
-  console.log('sliderImgArr', sliderImgArr);
 
   const [sliderState, setSliderState] =
     useState<React.ReactNode[]>(sliderImgArr);
 
-  useEffect(() => {
-    setSliderState(sliderImgArr);
-  }, [props]);
+  // useEffect(() => {
+  //   setSliderState(sliderImgArr);
+  // }, [props]);
+
+  console.log('sliderState', typeof sliderState);
 
   const [imgIndexState, setImgIndexState] = useState<number>(0);
   const [imgSignalState, setImgSignalState] = useState<Boolean>(false);
@@ -41,28 +39,20 @@ const Slider = (props: SliderProps) => {
 
   useEffect(() => {
     if (imgIndexState !== null) {
-      // const checkIndex = 1;
-      console.log('index img', imgIndexState);
       setSliderState(
         sliderState?.map((child: string | unknown, index: number) => {
           let className: string = '';
 
-          if (
-            index !== imgIndexState - 1 &&
-            imgIndexState !== 0
-            // index === imgIndexState
-          ) {
-            console.log('차례4');
-            className = 'h-[33.5rem] w-full slider slide prev 1';
+          if (index !== imgIndexState - 1 && imgIndexState !== 0) {
+            className = 'h-[33.5rem] w-full slider slide prev';
           } else if (index === imgIndexState - 1 && imgIndexState === 0) {
-            className = 'h-[33.5rem] w-full slider slide next 2';
+            className = 'h-[33.5rem] w-full slider slide next';
           } else if (index !== imgIndexState + 1 && imgIndexState !== 0) {
-            console.log('차례4');
-            className = 'h-[33.5rem] w-full slider slide next 3';
+            className = 'h-[33.5rem] w-full slider slide next';
           } else if (index === imgIndexState + 1 && imgIndexState === 0) {
-            className = 'h-[33.5rem] w-full slider slide prev 4';
+            className = 'h-[33.5rem] w-full slider slide prev';
           } else {
-            className = 'h-[33.5rem] w-full slider slide next 5';
+            className = 'h-[33.5rem] w-full slider slide next';
           }
 
           if (index === imgIndexState) {
@@ -76,7 +66,6 @@ const Slider = (props: SliderProps) => {
       );
     }
   }, [imgIndexState]);
-  console.log('테스트1', sliderState);
 
   return (
     <div className="text-[#FFFFFF]">
@@ -93,10 +82,6 @@ const Slider = (props: SliderProps) => {
       <div className="slider slide">
         {imgSignalState === true ? sliderState : sliderState[0]}
       </div>
-      {/* <div>{updateSliderImg?.[imgIndexState]}</div> */}
-      {/* <div className="slider">
-        {}
-      </div> */}
       <div>
         <button
           type="button"
