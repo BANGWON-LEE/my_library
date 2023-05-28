@@ -1,4 +1,8 @@
+import Image from 'next/image';
 import React, { cloneElement, useEffect, useState } from 'react';
+
+import leftArrow from '../../asset/left_arrow.png';
+import rightArrow from '../../asset/right_arrow.png';
 
 type SliderProps = {
   children: Object;
@@ -68,28 +72,30 @@ const Slider = (props: SliderProps) => {
   }, [imgIndexState]);
 
   return (
-    <div className="text-[#FFFFFF]">
-      <div>
+    <div className="slider-back">
+      <div className="btn-block">
         <button
           type="button"
+          className="btn-left"
           onClick={() => {
             handlePrevImg();
           }}
         >
-          왼쪽 화살표
+          <Image src={leftArrow} alt="slide-left" />
         </button>
       </div>
       <div className="slider slide">
         {imgSignalState === true ? sliderState : sliderState[0]}
       </div>
-      <div>
+      <div className="btn-block">
         <button
           type="button"
+          className="btn-right"
           onClick={() => {
             handleNextImg();
           }}
         >
-          오른쪽 화살표
+          <Image src={rightArrow} alt="slide-right" />
         </button>
       </div>
     </div>
