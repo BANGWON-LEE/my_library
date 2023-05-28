@@ -27,6 +27,26 @@ a:hover {
   position: relative;
 }
 
+.slider-back{
+  display:flex;
+  color: #FFFFFF
+}
+
+.btn-block{
+  margin: 7% 0;
+}
+
+.btn-right{
+  position: relative;
+  right: 85%;
+}
+
+.btn-left{
+  position: relative;
+  left: 85%;
+  z-index: 99;
+}
+
 .slider .slide {
   width: 100%;
   height: 100%;
