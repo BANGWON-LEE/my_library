@@ -46,9 +46,9 @@ const Slider = (props: SliderProps) => {
 
   // 자동 slider가 실행되게 하는 useEffect
   useEffect(() => {
-    const time: number = 3000;
+    const time: number = 5000;
     autoMoveImage(time);
-  }, [props]);
+  });
 
   useEffect(() => {
     if (imgIndexState !== null) {
