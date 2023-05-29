@@ -24,8 +24,8 @@ const Slider = (props: SliderProps) => {
       setImgIndexState(0);
     } else if (imgIndexState < sliderState!.length) {
       setImgIndexState(imgIndexState + 1);
-      setImgSignalState(true);
     }
+    setImgSignalState(true);
   };
 
   const handlePrevImg = () => {
@@ -40,14 +40,20 @@ const Slider = (props: SliderProps) => {
   // 자동 slider를 위한 함수
   const autoMoveImage = (time: number) => {
     setTimeout(() => {
-      handleNextImg();
+      if (imgSignalState === false) {
+        handleNextImg();
+      } else {
+        setImgSignalState(false);
+      }
     }, time);
   };
 
   // 자동 slider가 실행되게 하는 useEffect
   useEffect(() => {
     const time: number = 5000;
+    // if (imgSignalState === false) {
     autoMoveImage(time);
+    // }
   });
 
   useEffect(() => {
@@ -94,7 +100,8 @@ const Slider = (props: SliderProps) => {
         </button>
       </div>
       <div className="slider slide">
-        {imgSignalState === true ? sliderState : sliderState[0]}
+        {/* {imgSignalState === true ? sliderState : sliderState[0]} */}
+        {sliderState}
       </div>
       <div className="btn-block">
         <button
