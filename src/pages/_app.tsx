@@ -1,4 +1,5 @@
 import '../styles/global.css';
+import '../styles/slider.css';
 
 import type { AppProps } from 'next/app';
 
