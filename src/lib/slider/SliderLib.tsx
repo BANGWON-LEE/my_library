@@ -14,7 +14,7 @@ const Slider = (props: SliderProps) => {
   const [sliderState, setSliderState] =
     useState<React.ReactNode[]>(sliderImgArr);
 
-  console.log('sliderState', typeof sliderState);
+  console.log('sliderState', typeof sliderImgArr);
 
   const [imgIndexState, setImgIndexState] = useState<number>(0);
   const [imgSignalState, setImgSignalState] = useState<Boolean>(false);
@@ -51,9 +51,7 @@ const Slider = (props: SliderProps) => {
   // 자동 slider가 실행되게 하는 useEffect
   useEffect(() => {
     const time: number = 5000;
-    // if (imgSignalState === false) {
     autoMoveImage(time);
-    // }
   });
 
   useEffect(() => {
