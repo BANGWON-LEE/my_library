@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import CalendarDay from './components/CalendarDay';
 import CalendarMonth from './components/CalendarMonth';
@@ -42,23 +42,28 @@ const CalendarLib = () => {
 
   const [allDates, setAllDates] = useState<Object[]>([]);
 
-  useEffect(() => {
+  useMemo(() => {
+    if (allDates.length !== 0) {
+      console.log('체크1');
+      setAllDates([]);
+    }
+
     const standardDate = new Date(previousMonthFirstDate);
     const datesToAdd: [string, string][] = [];
+
     while (standardDate <= nextMonthLastDate) {
-      // console.log('allDs', previousMonthFirstDate);
       datesToAdd.push([
         new Date(standardDate).getDay().toString(), // 요일을 구분하기 위함
         new Date(standardDate).getDate().toString(), // 각 월의 일(날짜)
       ]);
-      // setAllDates((dates) => {...dates, allDates.concat(new Date(previousMonthFirstDate.getDate()))});
+
       standardDate.setDate(standardDate.getDate() + 1);
-      // currentDate.setDate(allDates.getDate() + 1);
     }
 
     setAllDates((dates) => [...dates, ...datesToAdd]);
   }, [choiceMonth]);
-  console.log('allD', allDates);
+
+  console.log('all', allDates);
 
   return (
     <div>
