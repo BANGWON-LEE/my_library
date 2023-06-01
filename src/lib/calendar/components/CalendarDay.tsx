@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CalendarDayType {
   allDates: object[];
 }
 
 const CalendarDay = (props: CalendarDayType) => {
-  // const [arrDayState, setArrDayState] = useState<object[]>();
+  const [arrDayState, setArrDayState] = useState<object[]>();
   const toggleDay = (): void => {
     // console.log('이전123', dates);
   };
