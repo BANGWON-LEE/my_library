@@ -5,7 +5,7 @@ interface CalendarDayType {
 }
 
 const CalendarDay = (props: CalendarDayType) => {
-  const [arrDayState, setArrDayState] = useState<object[]>();
+  const [arrDayState, setArrDayState] = useState<object[][] | string[]>();
   const toggleDay = (): void => {
     // console.log('이전123', dates);
   };
@@ -18,9 +18,9 @@ const CalendarDay = (props: CalendarDayType) => {
     console.log('data', data);
     console.log('lng', data.length / 7);
     // const dayArray: string[][] = [];
-    const dayArray: any = [];
+    const dayArray: object[][] = [];
     const weekArray: any = ['', '', '', '', '', '', ''];
-    console.log('weeklng', data?.length);
+
     let i = 0;
     for (let j = 1; j <= data?.length; j += 1) {
       const [type, value] = data[j - 1];
@@ -54,7 +54,8 @@ const CalendarDay = (props: CalendarDayType) => {
         console.log('6번라인', value);
       }
     }
-    console.log('dayArray', dayArray);
+    setArrDayState(dayArray);
+    console.log('dayArray', arrDayState);
   };
 
   useEffect(() => {
@@ -65,12 +66,14 @@ const CalendarDay = (props: CalendarDayType) => {
 
   console.log('allD2', arrDayState);
 
+  // 주간의 날짜에 따라 보여주는 날짜 기간 수정
+
   return (
     <div>
       {arrDayState?.map((el) => (
-        <div key={el}>
+        <div key={el.toString()}>
           <button type="button" onClick={() => toggleDay()}>
-            {el}
+            {el.toString().replaceAll(',', '')}
           </button>
         </div>
       ))}
