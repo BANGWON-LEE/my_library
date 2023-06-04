@@ -5,25 +5,18 @@ import CalendarMonth from './components/CalendarMonth';
 
 const CalendarLib = () => {
   const [choiceMonth, setChoiceMonth] = useState<number>(0);
-
-  console.log('더빼', choiceMonth);
   // 현재 시간의 날짜 객체 생성
   const currentDate = new Date();
 
+  // 선택한 달의 첫 날 (예 : 7월을 선택했을 경우 7월 1일을 가져옴)
   const choiceDate = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() + choiceMonth
-    // currentDate.getDate()
   );
 
-  // // 현재 달의 첫째 날을 구합니다.
-  // const firstDayOfMonth = new Date(
-  //   currentDate.getFullYear(),
-  //   currentDate.getMonth(),
-  //   1
-  // );
-
   // 현재 달의 다음 달을 구합니다.
+  // JS 월을 나타낼 때, 0 =>1월 1=> 2월 따라서 11월일 12월이기 때문에
+  // 현재가 12월(11)이면 다음 달은 1월(0)이 되어야 한다.
   const nextMonth =
     currentDate.getMonth() === 11
       ? 0
@@ -34,32 +27,28 @@ const CalendarLib = () => {
       ? currentDate.getFullYear() + 1
       : currentDate.getFullYear();
 
-  // 현재 달의 다음 달의 첫째 날을 구합니다.
+  // 다음 달의 첫째 날을 구합니다.
   const firstDayOfNextMonth = new Date(nextMonthYear, nextMonth, 1);
 
-  // 현재 달의 전달의 마지막 날을 구합니다.
+  // 전달의 마지막 날을 구합니다.
   const lastDayOfPreviousMonth = new Date(choiceDate.getTime() - 1);
 
-  // 현재 달의 전달의 마지막 주의 일요일을 구합니다.
+  // 전달의 마지막 주의 일요일을 구합니다.
   const lastSundayOfPreviousMonth = new Date(lastDayOfPreviousMonth);
   lastSundayOfPreviousMonth.setDate(
     lastSundayOfPreviousMonth.getDate() - lastSundayOfPreviousMonth.getDay()
   );
 
-  // 현재 달의 다음 달의 첫째 주의 토요일을 구합니다.
-  const firstSaturdayOfNextMonth = new Date(firstDayOfNextMonth);
-  firstSaturdayOfNextMonth.setDate(
-    firstSaturdayOfNextMonth.getDate() +
-      (12 - firstSaturdayOfNextMonth.getDay())
-  );
+  // 다음 달의 둘째 주의 토요일을 구합니다.
+  const secondSaturdayOfNextMonth = new Date(firstDayOfNextMonth);
+  secondSaturdayOfNextMonth.setDate(secondSaturdayOfNextMonth.getDate() + 7); // 첫째 주를 건너뛰기 위해 7일을 추가합니다.
 
-  console.log('현재달', choiceDate);
+  // 둘째 주 토요일을 구함, getDay() !== 6이 아닌 0인 이유는 while문은 true일 때 break 하기 때문에.
+  while (secondSaturdayOfNextMonth.getDay() !== 0) {
+    secondSaturdayOfNextMonth.setDate(secondSaturdayOfNextMonth.getDate() + 1);
+  }
 
-  // 이전 달의 데이터 출력
-  console.log('이전달 1', lastSundayOfPreviousMonth);
-
-  // 마지막 달 데이터 출력
-  console.log('다음달 2', firstSaturdayOfNextMonth);
+  console.log('토토', secondSaturdayOfNextMonth);
 
   const [allDates, setAllDates] = useState<Object[]>([]);
 
@@ -73,7 +62,7 @@ const CalendarLib = () => {
       // datesToAdd.length = 0;
     }
 
-    while (standardDate <= firstSaturdayOfNextMonth) {
+    while (standardDate <= secondSaturdayOfNextMonth) {
       datesToAdd.push([
         new Date(standardDate).getDay().toString(), // 요일을 구분하기 위함
         new Date(standardDate).getDate().toString(), // 각 월의 일(날짜)
