@@ -78,9 +78,10 @@ const CalendarLib = () => {
   console.log('all', allDates);
 
   return (
-    <div>
+    <div className="w-[35rem] border-4">
       <CalendarMonth
         choiceMonth={choiceMonth}
+        currentDate={currentDate}
         setChoiceMonth={(newState: number | null) => {
           if (newState !== null) {
             setChoiceMonth(newState);
