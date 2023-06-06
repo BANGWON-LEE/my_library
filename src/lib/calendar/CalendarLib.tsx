@@ -54,7 +54,7 @@ const CalendarLib = () => {
 
   useMemo(() => {
     const standardDate = new Date(lastSundayOfPreviousMonth);
-    const datesToAdd: [string, string][] = [];
+    const datesToAdd: Date[] = [];
 
     if (allDates.length !== 0) {
       console.log('체크1');
@@ -63,10 +63,7 @@ const CalendarLib = () => {
     }
 
     while (standardDate <= secondSaturdayOfNextMonth) {
-      datesToAdd.push([
-        new Date(standardDate).getDay().toString(), // 요일을 구분하기 위함
-        new Date(standardDate).getDate().toString(), // 각 월의 일(날짜)
-      ]);
+      datesToAdd.push(new Date(standardDate));
 
       standardDate.setDate(standardDate.getDate() + 1);
       console.log('datesToAdd', datesToAdd);
@@ -77,18 +74,21 @@ const CalendarLib = () => {
 
   console.log('all', allDates);
 
+  const initialMonth = currentDate.getMonth() + 1;
+  const currentMonth = initialMonth + choiceMonth;
+
   return (
     <div className="w-[35rem] border-4">
       <CalendarMonth
         choiceMonth={choiceMonth}
-        currentDate={currentDate}
+        currentMonth={currentMonth.toString()}
         setChoiceMonth={(newState: number | null) => {
           if (newState !== null) {
             setChoiceMonth(newState);
           }
         }}
       />
-      <CalendarDay allDates={allDates} />
+      <CalendarDay allDates={allDates} currentMonth={currentMonth.toString()} />
     </div>
   );
 };
