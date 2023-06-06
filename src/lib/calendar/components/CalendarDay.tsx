@@ -49,11 +49,20 @@ const CalendarDay = (props: CalendarDayType) => {
   // 주간의 날짜에 따라 보여주는 날짜 기간 수정
 
   return (
-    <div className="mx-auto w-fit ">
+    <div className="mx-auto my-6 w-fit ">
+      <div className="flex w-full justify-around">
+        <div>일</div>
+        <div>월</div>
+        <div>화</div>
+        <div>수</div>
+        <div>목</div>
+        <div>금</div>
+        <div>토</div>
+      </div>
       {arrDayState?.slice(0, 6).map((el) => (
-        <div className="flex w-full justify-around" key={Number(el)}>
+        <div className="flex w-full justify-around" key={Number(el[0])}>
           {el.map((day) => (
-            <div key={day.toString()} className="w-[4rem] py-2">
+            <div key={Number(day)} className="w-[4rem] py-2">
               <button
                 className="w-[4rem]"
                 type="button"
