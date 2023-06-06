@@ -5,14 +5,10 @@ interface CalendarDayType {
 }
 
 const CalendarDay = (props: CalendarDayType) => {
-  const [arrDayState, setArrDayState] = useState<object[][] | string[]>();
+  const [arrDayState, setArrDayState] = useState<object[][] | string[][]>();
   const toggleDay = (): void => {
     // console.log('이전123', dates);
   };
-
-  // j = i * j
-  // 0 1 2 3 4 5 6
-  // 7 8 9 10 11 12 13
 
   const divideDay = (data: any) => {
     const dayArray: object[][] = [];
@@ -53,12 +49,20 @@ const CalendarDay = (props: CalendarDayType) => {
   // 주간의 날짜에 따라 보여주는 날짜 기간 수정
 
   return (
-    <div>
+    <div className="mx-auto w-fit ">
       {arrDayState?.slice(0, 6).map((el) => (
-        <div key={el.toString()}>
-          <button type="button" onClick={() => toggleDay()}>
-            {el.toString().replaceAll(',', '')}
-          </button>
+        <div className="flex w-full justify-around" key={Number(el)}>
+          {el.map((day) => (
+            <div key={day.toString()} className="w-[4rem] py-2">
+              <button
+                className="w-[4rem]"
+                type="button"
+                onClick={() => toggleDay()}
+              >
+                {day.toString().replaceAll(',', '')}
+              </button>
+            </div>
+          ))}
         </div>
       ))}
     </div>
