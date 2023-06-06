@@ -5,14 +5,11 @@ import RightImg from '../../../asset/calendar_right.png';
 
 interface CalendarType {
   choiceMonth: number;
-  currentDate: Date;
+  currentMonth: string;
   setChoiceMonth: (newState: number) => void;
 }
 
 const CalendarMonth = (props: CalendarType) => {
-  const initialMonth = props.currentDate.getMonth() + 1;
-  const month = initialMonth + props.choiceMonth;
-
   const prevMonth = (): void => {
     props.setChoiceMonth(props.choiceMonth - 1);
   };
@@ -32,7 +29,7 @@ const CalendarMonth = (props: CalendarType) => {
           />
         </button>
       </div>
-      <div>{month}월</div>
+      <div>{props.currentMonth}월</div>
       <div className="pl-4">
         <button type="button" onClick={() => nextMonth()}>
           <Image
