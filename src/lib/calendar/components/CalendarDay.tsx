@@ -1,15 +1,43 @@
 import { useEffect, useState } from 'react';
 
-interface CalendarDaydayType {
+interface CalendarDayType {
   allDates: object[];
   currentMonth: string;
 }
-
-const CalendarDay = (props: CalendarDaydayType) => {
-  const [arrDayState, setArrDayState] = useState<object[][] | string[][]>();
-  const toggleDay = (): void => {
-    // console.log('이전123', dates);
+interface DayInfoType {
+  start: number;
+  end: number;
+}
+const CalendarDay = (props: CalendarDayType) => {
+  const initialDayInfo: DayInfoType = {
+    start: 0,
+    end: 0,
   };
+  const [dateRange, setDateRange] = useState<DayInfoType>(initialDayInfo);
+
+  const toggleDay = (day: object | string): void => {
+    console.log('마이데이', day);
+    const dayInfo: number = new Date(day.toString()).getTime();
+
+    setDateRange((prevDateRange) => {
+      if (prevDateRange.start === 0) {
+        return {
+          ...prevDateRange,
+          start: dayInfo,
+        };
+      }
+      if (prevDateRange.start !== 0 && prevDateRange.start < dayInfo) {
+        return {
+          ...prevDateRange,
+          end: dayInfo,
+        };
+      }
+      return initialDayInfo;
+    });
+  };
+  console.log('마이데이3', dateRange);
+
+  const [arrDayState, setArrDayState] = useState<object[][] | string[][]>();
 
   const divideDay = (data: any) => {
     const dayArray: object[][] = [];
@@ -76,9 +104,26 @@ const CalendarDay = (props: CalendarDaydayType) => {
                 className={`w-[4rem] ${
                   props.currentMonth !==
                     ((day as Date).getMonth() + 1).toString() && btnDisabled
-                }`}
+                }
+                ${
+                  dateRange?.end === new Date(day.toString()).getTime() &&
+                  ' rounded-full bg-pink-600  text-[#FFFFFF]'
+                }
+                ${
+                  dateRange?.start === new Date(day.toString()).getTime() &&
+                  'rounded-full bg-pink-600  text-[#FFFFFF]'
+                }
+                ${
+                  (dateRange?.start as number) <
+                    new Date(day.toString()).getTime() &&
+                  (dateRange?.end as number) >
+                    new Date(day.toString()).getTime() &&
+                  ' bg-orange-300'
+                }
+       
+                `}
                 type="button"
-                onClick={() => toggleDay()}
+                onClick={() => toggleDay(day)}
                 disabled={
                   props.currentMonth !==
                   ((day as Date).getMonth() + 1).toString()
