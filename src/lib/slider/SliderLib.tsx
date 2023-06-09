@@ -38,21 +38,21 @@ const Slider = (props: SliderProps) => {
   };
 
   // 자동 slider를 위한 함수
-  const autoMoveImage = (time: number) => {
-    setTimeout(() => {
-      if (imgSignalState === false) {
-        handleNextImg();
-      } else {
-        setImgSignalState(false);
-      }
-    }, time);
-  };
+  // const autoMoveImage = (time: number) => {
+  //   setTimeout(() => {
+  //     if (imgSignalState === false) {
+  //       handleNextImg();
+  //     } else {
+  //       setImgSignalState(false);
+  //     }
+  //   }, time);
+  // };
 
   // 자동 slider가 실행되게 하는 useEffect
-  useEffect(() => {
-    const time: number = 5000;
-    autoMoveImage(time);
-  });
+  // useEffect(() => {
+  //   const time: number = 5000;
+  //   autoMoveImage(time);
+  // });
 
   useEffect(() => {
     if (imgIndexState !== null) {
@@ -98,8 +98,8 @@ const Slider = (props: SliderProps) => {
         </button>
       </div>
       <div className="slider slide">
-        {/* {imgSignalState === true ? sliderState : sliderState[0]} */}
-        {sliderState}
+        {imgSignalState === true ? sliderState : sliderState[0]}
+        {/* <div>{sliderState}</div> */}
       </div>
       <div className="btn-block">
         <button
