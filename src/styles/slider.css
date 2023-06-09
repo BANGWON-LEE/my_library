@@ -1,5 +1,5 @@
 .slider {
-  width: 100%;
+  width: 70%;
   height :33.5rem;
   /* height: 100%;슬라이더의 높이 설정 */
   overflow: hidden;
@@ -8,27 +8,31 @@
 }
 
 .slider-back{
-  /* display:flex; */
+  display:flex;
   /* height: auto; */
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   /* height: max-content; */
 }
 
 .btn-block{
   /* margin: 7% 0; */
-  height: 100%;
+  /* height: 5rem; */
+  padding: 14.6rem 0;
+  /* position: relative; */
+  
 }
 
 .btn-right{
-  position: absolute;
-  right: 10rem;
-  bottom: 25rem;
+
+  position: relative;
+  right: 7.5rem;
+  /* bottom: 25rem; */
 }
 
 .btn-left{
-  position: absolute;
-  left:10rem;
-  bottom: 25rem;
+  position: relative;
+  left:7.5rem;
+  /* bottom: 25rem; */
   /* top : 1%; */
   z-index: 99;
 }
