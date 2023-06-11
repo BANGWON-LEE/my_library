@@ -26,11 +26,22 @@ const Timetable = () => {
     setTimeList((data) => [...data, registeredData]);
   };
 
-  console.log('time', timeList);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleDragStart = (event: any) => {
+    setIsDragging(true);
+    // 드래그하는 요소의 데이터 설정
+    const test = event.dataTransfer.setData('text/plain', event.target.id);
+    console.log('test', test);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div className="flex w-full justify-between">
-      <div className="w-full">
+      <div className="w-1/5">
         <div className="w-[18rem] border-4 py-5">
           <div className="w-auto py-4 text-center">
             <input
@@ -53,7 +64,7 @@ const Timetable = () => {
               <option value="bg-[#8fb0c6]">Blue</option>
               <option value="bg-[#3CB371]">Green</option>
               <option value="bg-[#E2E2E2]">Gray</option>
-              <option value="bg-[e9ec69]">Yellow</option>
+              <option value="bg-[#e9ec69]">Yellow</option>
             </select>
           </div>
           <div className="w-auto py-2 text-center">
@@ -66,14 +77,25 @@ const Timetable = () => {
             </button>
           </div>
         </div>
-        {timeList?.map((el: TimeType) => (
-          <div key={1} className={`${el.color} my-5 w-[18rem] border-4 `}>
-            <div className="w-auto py-4 text-center">{el.title}</div>
-            <div className="w-auto py-4 text-center">{el.content}</div>
+        {timeList?.map((el: TimeType, index: number) => (
+          <div
+            key={1}
+            id={index.toString()}
+            className={`${el.color}  h-[7rem] w-[9.5rem] border-4 `}
+            draggable
+            onDragStart={(event: any) => handleDragStart(event)}
+            onDragEnd={handleDragEnd}
+          >
+            <div className="my-4 w-auto text-center font-extrabold">
+              {el.title}
+            </div>
+            <div className="my-4 w-auto text-center font-extralight">
+              {el.content}
+            </div>
           </div>
         ))}
       </div>
-      <CreateTime />
+      <CreateTime isDragging={isDragging} />
     </div>
   );
 };
