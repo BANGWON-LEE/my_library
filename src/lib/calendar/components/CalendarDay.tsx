@@ -24,13 +24,13 @@ const CalendarDay = (props: CalendarDayType) => {
         return {
           ...prevDateRange,
           start: dayInfo,
-        };
+        }; // 이 리턴을 통해 범위의 시작과 끝이 초기화 되지 않음
       }
       if (prevDateRange.start !== 0 && prevDateRange.start < dayInfo) {
         return {
           ...prevDateRange,
           end: dayInfo,
-        };
+        }; // 이 리턴을 통해 범위의 시작과 끝이 초기화 되지 않음
       }
       return initialDayInfo;
     });
