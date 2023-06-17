@@ -9,12 +9,16 @@ const CreateTime = (props: CreateTimeType) => {
     event.preventDefault();
   };
 
-  const handleDrop = (event: any) => {
+  const handleDrop = (event: any, time: string) => {
     event.preventDefault();
+
+    if (time !== '') {
+      return;
+    }
+
     // 드롭된 요소 처리 로직
     const data = event.dataTransfer.getData('text/plain');
     const droppedElement = document.getElementById(data);
-    console.log('handleDropData', droppedElement);
     event.target.appendChild(droppedElement);
   };
 
@@ -49,7 +53,7 @@ const CreateTime = (props: CreateTimeType) => {
               id={`dropTarget ${index.toString()}`}
               className="h-[7rem] w-[9.5rem]"
               onDragOver={(event) => handleDragOver(event)}
-              onDrop={(event) => handleDrop(event)}
+              onDrop={(event) => handleDrop(event, time)}
               style={{
                 border: props.isDragging
                   ? '2px dashed red'
