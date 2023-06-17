@@ -81,8 +81,6 @@ const CalendarDay = (props: CalendarDayType) => {
     }
   }, [props.allDates]);
 
-  console.log('currentMonth', props.currentMonth);
-
   const btnDisabled = 'opacity-25 pointer-events-none';
 
   return (
@@ -120,7 +118,6 @@ const CalendarDay = (props: CalendarDayType) => {
                     new Date(day.toString()).getTime() &&
                   ' bg-orange-300'
                 }
-       
                 `}
                 type="button"
                 onClick={() => toggleDay(day)}
