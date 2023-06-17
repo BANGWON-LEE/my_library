@@ -1,15 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface CreateTimeType {
   isDragging: boolean;
 }
 
 const CreateTime = (props: CreateTimeType) => {
+  const [timeArray, setTimeArray] = useState<object[][]>(() => {
+    const initialArray: object[][] = [];
+
+    // timeArray 배열 초기화
+    for (let i = 0; i < 10; i += 1) {
+      const innerArray: object[] = [];
+
+      for (let j = 0; j < 6; j += 1) {
+        innerArray.push({ title: '', content: '' });
+      }
+
+      initialArray.push(innerArray);
+    }
+
+    return initialArray;
+  });
+
   const handleDragOver = (event: any) => {
     event.preventDefault();
   };
+  // const timeTableArray: object[][] = [];
+  // const timeArray: object[][] = [];
 
-  const handleDrop = (event: any, time: string) => {
+  const handleDrop = (
+    event: any,
+    time: string,
+    firstIndex: number,
+    secondIndex: number
+  ) => {
     event.preventDefault();
 
     if (time !== '') {
@@ -19,8 +43,18 @@ const CreateTime = (props: CreateTimeType) => {
     // 드롭된 요소 처리 로직
     const data = event.dataTransfer.getData('text/plain');
     const droppedElement = document.getElementById(data);
+    const title = droppedElement?.childNodes[0]?.textContent;
+    const content = droppedElement?.childNodes[1]?.textContent;
     event.target.appendChild(droppedElement);
+
+    if (title !== '' && content !== '') {
+      const plan: object = { title, content };
+      const updatedArray = [...timeArray];
+      updatedArray[firstIndex]![secondIndex] = plan;
+      setTimeArray(updatedArray);
+    }
   };
+  console.log('결과', timeArray);
 
   const week: string[] = [' ', '월', '화', '수', '목', '금'];
   const row: string[][] = [
@@ -46,14 +80,14 @@ const CreateTime = (props: CreateTimeType) => {
         ))}
       </div>
       {row.map((ls: string[], index: number) => (
-        <div className="flex" key={ls[0]}>
-          {ls.map((time) => (
+        <div className="flex" key={`ls ${Number(index)}`}>
+          {ls.map((time, innerIndex: number) => (
             <div
-              key={time}
-              id={`dropTarget ${index.toString()}`}
+              key={`innerIndex${Number(innerIndex)}`}
+              id={`dropTarget ${index.toString()}${innerIndex.toString()}`}
               className="h-[7rem] w-[9.5rem]"
               onDragOver={(event) => handleDragOver(event)}
-              onDrop={(event) => handleDrop(event, time)}
+              onDrop={(event) => handleDrop(event, time, index, innerIndex - 1)}
               style={{
                 border: props.isDragging
                   ? '2px dashed red'
